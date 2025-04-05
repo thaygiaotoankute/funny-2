@@ -56,7 +56,7 @@ def call_gemini_api(original_text: str, gemini_key: str) -> str:
             return "Lỗi: Chưa có Gemini API Key"
         GEMINI_API_URL = (
             "https://generativelanguage.googleapis.com/v1beta/models/"
-            "gemini-pro:generateContent?key=" + gemini_key
+            "gemini-2.0-flash-thinking-exp-01-21:generateContent?key=" + gemini_key
         )
         prompt = (
             "Please help me correct Vietnamese spelling and grammar in the following text. "
