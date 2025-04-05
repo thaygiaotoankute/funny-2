@@ -25,6 +25,9 @@ else:
     app.config['UPLOAD_FOLDER'] = 'uploads'
     
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max upload size
+# Tăng thời gian timeout cho các request
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 300  # 5 phút
+app.config['PERMANENT_SESSION_LIFETIME'] = 1800  # 30 phút
 
 # Tạo thư mục upload nếu chưa tồn tại
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -76,7 +79,7 @@ def call_gemini_api(original_text: str, gemini_key: str) -> str:
             }
         }
         headers = {"Content-Type": "application/json"}
-        resp = requests.post(GEMINI_API_URL, json=payload, headers=headers, timeout=(10, 180))
+        resp = requests.post(GEMINI_API_URL, json=payload, headers=headers, timeout=(30, 300))
         if resp.status_code == 200:
             data = resp.json()
             if "candidates" in data and len(data["candidates"]) > 0:
